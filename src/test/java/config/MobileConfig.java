@@ -10,7 +10,7 @@ public interface MobileConfig extends Config {
     @Key("https.curl")
     String curl();
 
-    @Key("device.name=")
+    @Key("device.name")
     String device();
 
     @Key("device.user")
