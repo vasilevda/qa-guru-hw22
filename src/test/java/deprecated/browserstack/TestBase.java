@@ -2,7 +2,7 @@ package deprecated.browserstack;
 
 import com.codeborne.selenide.Configuration;
 import drivers.BrowserstackMobileDriver;
-import helpers.Attachment;
+import helpers.Attachments;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -32,8 +32,8 @@ public class TestBase {
     public void afterEach() {
 //        String sessionId = getSessionId();
 
-        Attachment.screenshotAs("Last screenshot");
-        Attachment.pageSource();
+        Attachments.screenshotAs("Last screenshot");
+        Attachments.pageSource();
 
         closeWebDriver();
 

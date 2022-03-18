@@ -4,7 +4,6 @@ import com.codeborne.selenide.Configuration;
 import config.MobileConfig;
 import drivers.BrowserstackMobileDriver;
 import drivers.MobileDriver;
-import helpers.Attachment;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -14,14 +13,14 @@ import org.junit.jupiter.api.BeforeEach;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
+import static helpers.Attachments.*;
 
-public class TestBase extends Attachment {
+public class TestBase {
     static final MobileConfig CFG = ConfigFactory.create(MobileConfig.class);
 
     @BeforeAll
     public static void setup() {
         addListener("AllureSelenide", new AllureSelenide());
-
 
         switch (CFG.device().toLowerCase()) {
             case "browserstack":
@@ -35,30 +34,29 @@ public class TestBase extends Attachment {
             default:
                 throw new IllegalArgumentException(
                         String.format("Unknown device name=%s. " +
-                                "Please run with parameter " +
                                 "-Ddevice.name=[Browserstack/Selenoid/Emulation/Real]", CFG.device()));
         }
         Configuration.browserSize = null;
     }
 
     @BeforeEach
-    public void startDriver() {
+    public void beforeEach() {
         open();
     }
 
     @AfterEach
     public void afterEach() {
+        String sessionId = getSessionId();
         screenshotAs("Last screenshot");
         pageSource();
-        closeWebDriver();
 
+        closeWebDriver();
         switch (CFG.device().toLowerCase()) {
             case "browserstack":
-                videoBrowserstack();
-//                videoBrowserstack(getSessionId());
+                videoBrowserstack(sessionId);
                 break;
             case "selenoid":
-                videoSelenoid();
+                videoSelenoid(sessionId);
                 break;
         }
     }

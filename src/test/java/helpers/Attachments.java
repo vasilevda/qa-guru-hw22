@@ -1,5 +1,6 @@
 package helpers;
 
+import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -10,40 +11,39 @@ import java.nio.charset.StandardCharsets;
 
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
-public class Attachment {
-    private static final String SESSION_ID = getSessionId();
+public class Attachments {
 
-    @io.qameta.allure.Attachment(value = "{attachName}", type = "text/plain")
+    @Attachment(value = "{attachName}", type = "text/plain")
     public static String attachAsText(String attachName, String message) {
         return message;
     }
 
-    @io.qameta.allure.Attachment(value = "Page source", type = "text/plain")
+    @Attachment(value = "Page source", type = "text/plain")
     public static byte[] pageSource() {
         return getWebDriver().getPageSource().getBytes(StandardCharsets.UTF_8);
     }
 
-    @io.qameta.allure.Attachment(value = "{attachName}", type = "image/png")
+    @Attachment(value = "{attachName}", type = "image/png")
     public static byte[] screenshotAs(String attachName) {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
-    @io.qameta.allure.Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String videoBrowserstack() {
+    @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
+    public static String videoBrowserstack(String sessionId) {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + Browserstack.videoUrl(SESSION_ID)
+                + Browserstack.videoUrl(sessionId)
                 + "' type='video/mp4'></video></body></html>";
     }
 
-    @io.qameta.allure.Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String videoSelenoid() {
+    @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
+    public static String videoSelenoid(String sessionId) {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl()
+                + getVideoUrl(sessionId)
                 + "' type='video/mp4'></video></body></html>";
     }
 
-    private static URL getVideoUrl() {
-        String videoUrl = "https://selenoid.autotests.cloud/video/" + SESSION_ID + ".mp4";
+    private static URL getVideoUrl(String sessionId) {
+        String videoUrl = "https://selenoid.autotests.cloud/video/" + sessionId + ".mp4";
 
         try {
             return new URL(videoUrl);
@@ -53,7 +53,7 @@ public class Attachment {
         return null;
     }
 
-    private static String getSessionId() {
+    public static String getSessionId() {
         return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 }

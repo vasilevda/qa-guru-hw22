@@ -2,7 +2,7 @@ package deprecated.local;
 
 import com.codeborne.selenide.Configuration;
 import drivers.MobileDriver;
-import helpers.Attachment;
+import helpers.Attachments;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,8 +30,8 @@ public class TestBase {
 
     @AfterEach
     public void afterEach() {
-        Attachment.screenshotAs("Last screenshot");
-        Attachment.pageSource();
+        Attachments.screenshotAs("Last screenshot");
+        Attachments.pageSource();
 
         closeWebDriver();
     }
