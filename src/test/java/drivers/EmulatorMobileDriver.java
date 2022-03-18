@@ -23,10 +23,10 @@ import static org.apache.commons.io.FileUtils.copyInputStreamToFile;
 import static org.openqa.selenium.remote.CapabilityType.APPLICATION_NAME;
 
 @ParametersAreNonnullByDefault
-public class MobileDriver implements WebDriverProvider {
+public class EmulatorMobileDriver implements WebDriverProvider {
     static final MobileConfig CFG = ConfigFactory.create(MobileConfig.class);
 
-    MobileDriver () {
+    EmulatorMobileDriver() {
         Assertions.assertNotNull(CFG.url(), "Hub not fount");
     }
 
@@ -40,7 +40,8 @@ public class MobileDriver implements WebDriverProvider {
         options.merge(capabilities);
         options.setAutomationName(AutomationName.ANDROID_UIAUTOMATOR2);
         options.setPlatformName("Android");
-        options.setDeviceName("FFY5T18119028141");
+        options.setDeviceName("Pixel_4_API_30");
+        options.setCapability(APPLICATION_NAME, "Appium");
         options.setApp(app.getAbsolutePath());
         options.setLocale("en");
         options.setLanguage("en");

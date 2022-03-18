@@ -3,6 +3,7 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import config.MobileConfig;
 import drivers.BrowserstackMobileDriver;
+import drivers.EmulatorMobileDriver;
 import drivers.MobileDriver;
 import drivers.SelenoidMobileDriver;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -31,6 +32,8 @@ public class TestBase {
                 Configuration.browser = SelenoidMobileDriver.class.getName();
                 break;
             case "emulation":
+                Configuration.browser = EmulatorMobileDriver.class.getName();
+                break;
             case "real":
                 Configuration.browser = MobileDriver.class.getName();
                 break;
