@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import config.MobileConfig;
 import drivers.BrowserstackMobileDriver;
 import drivers.MobileDriver;
+import helpers.Attachment;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -13,9 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
-import static helpers.Attach.*;
 
-public class TestBase {
+public class TestBase extends Attachment {
     static final MobileConfig CFG = ConfigFactory.create(MobileConfig.class);
 
     @BeforeAll
