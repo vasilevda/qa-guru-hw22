@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class Attach {
+    private static final String SESSION_ID = getSessionId();
+
     @Attachment(value = "{attachName}", type = "text/plain")
     public static String attachAsText(String attachName, String message) {
         return message;
@@ -28,21 +30,21 @@ public class Attach {
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String videoBrowserstack(String sessionId) {
+    public static String videoBrowserstack() {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + Browserstack.videoUrl(sessionId)
+                + Browserstack.videoUrl(SESSION_ID)
                 + "' type='video/mp4'></video></body></html>";
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
     public static String videoSelenoid() {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl(getSessionId())
+                + getVideoUrl()
                 + "' type='video/mp4'></video></body></html>";
     }
 
-    private static URL getVideoUrl(String sessionId) {
-        String videoUrl = "https://selenoid.autotests.cloud/video/" + sessionId + ".mp4";
+    private static URL getVideoUrl() {
+        String videoUrl = "https://selenoid.autotests.cloud/video/" + SESSION_ID + ".mp4";
 
         try {
             return new URL(videoUrl);
@@ -52,7 +54,7 @@ public class Attach {
         return null;
     }
 
-    public static String getSessionId() {
+    private static String getSessionId() {
         return ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
     }
 }

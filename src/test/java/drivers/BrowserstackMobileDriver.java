@@ -33,7 +33,7 @@ public class BrowserstackMobileDriver implements WebDriverProvider {
     }
 
     BrowserstackMobileDriver() {
-        Assertions.assertNotNull(CFG.url(), "Curl not found");
+        Assertions.assertNotNull(CFG.url(), "Url not found");
         Assertions.assertNotNull(CFG.curl(), "Curl not found");
         Assertions.assertNotNull(CFG.user(), "User not found");
         Assertions.assertNotNull(CFG.key(), "Key not found");

@@ -4,19 +4,16 @@ import com.codeborne.selenide.Configuration;
 import config.MobileConfig;
 import drivers.BrowserstackMobileDriver;
 import drivers.MobileDriver;
-import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.util.Locale;
-
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
-import static helpers.Attach.getSessionId;
+import static helpers.Attach.*;
 
 public class TestBase {
     static final MobileConfig CFG = ConfigFactory.create(MobileConfig.class);
@@ -51,16 +48,17 @@ public class TestBase {
 
     @AfterEach
     public void afterEach() {
-        Attach.screenshotAs("Last screenshot");
-        Attach.pageSource();
+        screenshotAs("Last screenshot");
+        pageSource();
         closeWebDriver();
 
         switch (CFG.device().toLowerCase()) {
             case "browserstack":
-                Attach.videoBrowserstack(getSessionId());
+                videoBrowserstack();
+//                videoBrowserstack(getSessionId());
                 break;
             case "selenoid":
-                Attach.videoSelenoid();
+                videoSelenoid();
                 break;
         }
     }

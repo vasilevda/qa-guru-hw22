@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
-import static helpers.Attach.getSessionId;
 
 @Deprecated
 public class TestBase {
@@ -31,13 +30,13 @@ public class TestBase {
 
     @AfterEach
     public void afterEach() {
-        String sessionId = getSessionId();
+//        String sessionId = getSessionId();
 
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
 
         closeWebDriver();
 
-        Attach.videoBrowserstack(sessionId);
+//        Attach.videoBrowserstack(sessionId);
     }
 }
