@@ -41,6 +41,7 @@ public class TestBase {
                                 "Please run with parameter " +
                                 "-Ddevice.name=[Browserstack/Selenoid/Emulation/Real]", CFG.device()));
         }
+        Configuration.browserSize = null;
     }
 
     @BeforeEach
@@ -61,11 +62,6 @@ public class TestBase {
             case "selenoid":
                 Attach.videoSelenoid();
                 break;
-            default:
-                throw new IllegalArgumentException(
-                        String.format("Unknown device name=%s. " +
-                                "Please run with parameter " +
-                                "-Ddevice.name=[Browserstack/Selenoid/Emulation/Real]", CFG.device()));
         }
     }
 
