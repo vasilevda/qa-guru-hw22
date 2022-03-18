@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import config.MobileConfig;
 import drivers.BrowserstackMobileDriver;
 import drivers.MobileDriver;
+import drivers.SelenoidMobileDriver;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -27,6 +28,8 @@ public class TestBase {
                 Configuration.browser = BrowserstackMobileDriver.class.getName();
                 break;
             case "selenoid":
+                Configuration.browser = SelenoidMobileDriver.class.getName();
+                break;
             case "emulation":
             case "real":
                 Configuration.browser = MobileDriver.class.getName();
