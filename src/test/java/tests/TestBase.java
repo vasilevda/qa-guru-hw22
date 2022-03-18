@@ -11,6 +11,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.Locale;
+
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
@@ -24,7 +26,7 @@ public class TestBase {
         addListener("AllureSelenide", new AllureSelenide());
 
 
-        switch (CFG.device()) {
+        switch (CFG.device().toLowerCase()) {
             case "browserstack":
                 Configuration.browser = BrowserstackMobileDriver.class.getName();
                 break;
@@ -52,7 +54,7 @@ public class TestBase {
         Attach.pageSource();
         closeWebDriver();
 
-        switch (CFG.device()) {
+        switch (CFG.device().toLowerCase()) {
             case "browserstack":
                 Attach.videoBrowserstack(getSessionId());
                 break;
